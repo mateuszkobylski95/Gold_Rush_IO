@@ -13,7 +13,6 @@ public class Board {
         clean();
     }
 
-    // Zagnieżdżona klasa wymagana przez PlayerTest
     public record Coords(int col, int row) {
     }
 
@@ -26,17 +25,14 @@ public class Board {
         }
     }
 
-    // Zgodnie z BoardTest.can_place_token
     public void placeToken(int col, int row, Token token) {
         squares[row][col] = token;
     }
 
-    // Zgodnie z BoardTest.peekToken(col, row)
     public Token peekToken(int col, int row) {
         return squares[row][col];
     }
 
-    // Wymagane przez BoardTest.display_method_exists
     public void display() {
 
     }
