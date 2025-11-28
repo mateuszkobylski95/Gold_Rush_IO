@@ -25,20 +25,17 @@ public class Board {
         }
     }
 
-
     public void placeToken(int col, int row, Token token) {
         squares[row][col] = token;
     }
-
-
     public Token peekToken(int col, int row) {
         return squares[row][col];
     }
 
 
     public void display() {
-        for (Token[] row : squares) {
-            for (Token token : row) {
+        for (Token[] s : squares) {
+            for (Token token : s) {
                 System.out.print(token.label());
             }
             System.out.println();
