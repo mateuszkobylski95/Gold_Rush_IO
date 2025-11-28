@@ -1,10 +1,12 @@
 package edu.io.token;
 
-import java.lang.reflect.Modifier;
-
 public abstract class Token {
-    public Token() {
+
+    private final String label;
+
+    public Token(String label) {
+        this.label = label;
     }
-    
+
     public abstract String label();
 }
