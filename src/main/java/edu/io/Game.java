@@ -25,38 +25,35 @@ public class Game {
         board.display();
         while (shouldRun) {
 
-            System.out.print(
-                    "Wybierz kierunek ruchu (lewo (l)  góra, dół (d) - dół, lewo (l) - lewo, prawo (p) - prawo, koniec (k) zakończ grę)  "
-            );
-            String playerInput = inputScanner.nextLine().trim().toLowerCase();
-            PlayerToken.Move move = switch (playerInput) {
-                case "góra", "g" -> PlayerToken.Move.UP;
-                case "dół", "d" -> PlayerToken.Move.DOWN;
-                case "lewo", "l" -> PlayerToken.Move.LEFT;
-                case "prawo", "p" -> PlayerToken.Move.RIGHT;
-                default -> PlayerToken.Move.NONE;
-            };
+            boolean validMove = true;
+            do {
+                System.out.print("Wpisz by wykonać ruch (w -  ruch w górę, s - ruch w dół, a - ruch w lewo, d - ruch w prawo, k by zakończyć grę)>> ");
+                String input = inputScanner.nextLine().toLowerCase();
+                if (input.equals("k")) {
+                    shouldRun = false;
+                    break;
+                }
+                PlayerToken.Move move = switch (input) {
+                    case "w" -> PlayerToken.Move.UP;
+                    case "s" -> PlayerToken.Move.DOWN;
+                    case "a" -> PlayerToken.Move.LEFT;
+                    case "d" -> PlayerToken.Move.RIGHT;
+                    default -> PlayerToken.Move.NONE;
+                };
 
-            if (playerInput.equals("k") || playerInput.equals("koniec")) {
-                shouldRun = false;
-                break;
-            }
+                if (move.equals(PlayerToken.Move.NONE)) {
+                    System.out.println("Niepoprawny kierunek. Spróbuj ponownie");
+                } else {
+                    try {
+                        player.token().move(move);
+                        board.display();
 
-
-            if (move == PlayerToken.Move.NONE) {
-                System.out.println("Niepoprawny kierunek. Spróbuj ponownie.");
-                continue;
-            }
-
-            try {
-                player.token().move(move);
-                board.display();
-
-
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-
-            }
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                        validMove = false;
+                    }
+                }
+            } while (!validMove);
         }
 
 
