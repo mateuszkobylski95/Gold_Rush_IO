@@ -37,34 +37,33 @@ public class PlayerToken extends Token {
 
 
     public void move(Move direction) {
-        int newCol = this.col;
-        int newRow = this.row;
+        int colAfterMove = this.col;
+        int rowAfterMove = this.row;
 
         switch (direction) {
             case UP:
-                newRow--;
+                rowAfterMove--;
                 break;
             case DOWN:
-                newRow++;
+                rowAfterMove++;
                 break;
             case LEFT:
-                newCol--;
+                colAfterMove--;
                 break;
             case RIGHT:
-                newCol++;
+                colAfterMove++;
                 break;
             case NONE:
                 return;
         }
 
-
-        if (newCol < 0 || newCol >= board.size() || newRow < 0 || newRow >= board.size()) {
-            throw new IllegalArgumentException("Ruch poza granice planszy!");
+        if (colAfterMove < 0 || colAfterMove >= board.size() || rowAfterMove < 0 || rowAfterMove >= board.size()) {
+            throw new IllegalArgumentException("Niedozwolony ruch");
         }
         player.interactWithToken(board.peekToken(this.col, this.row));
         board.placeToken(this.col, this.row, new EmptyToken());
-        this.col = newCol;
-        this.row = newRow;
+        this.col = colAfterMove;
+        this.row = rowAfterMove;
         board.placeToken(this.col, this.row, this);
     }
 }
