@@ -20,12 +20,11 @@ public class PlayerToken extends Token {
         return Label.PLAYER_TOKEN_LABEL;
     }
 
-    // Wymagane przez PlayerTest.new_PlayerToken_is_placed_on_the_board
     public PlayerToken(Player player, Board board) {
         super(Label.PLAYER_TOKEN_LABEL);
         this.board = board;
-        this.player = player;// Ustawienie początkowej pozycji na (0, 0)
-        this.col = 0; 
+        this.player = player;
+        this.col = 0;
         this.row = 0;
 
         board.placeToken(this.col, this.row, this);
@@ -62,8 +61,7 @@ public class PlayerToken extends Token {
         if (newCol < 0 || newCol >= board.size() || newRow < 0 || newRow >= board.size()) {
             throw new IllegalArgumentException("Ruch poza granice planszy!");
         }
-
-        // Aktualizacja planszy i pozycji
+        player.interactWithToken(board.peekToken(this.col, this.row));
         board.placeToken(this.col, this.row, new EmptyToken());
         this.col = newCol;
         this.row = newRow;
